@@ -14,11 +14,13 @@ class BlogPost extends Component {
   };
 
   getPostAPI = () => {
-    axios.get("  http://localhost:3004/posts").then((result) => {
-      this.setState({
-        post: result.data,
+    axios
+      .get(`http://localhost:3004/posts?_sort=id&_order=desc`)
+      .then((result) => {
+        this.setState({
+          post: result.data,
+        });
       });
-    });
   };
 
   handleRemove = (data) => {
@@ -27,19 +29,25 @@ class BlogPost extends Component {
     });
   };
   handleFormChange = (event) => {
-    console.log("form change", event.target);
-
+    let timestamp = new Date().getTime();
     let formBlogPostNew = { ...this.state.formBlogPost };
     formBlogPostNew[event.target.name] = event.target.value;
+    formBlogPostNew["id"] = timestamp;
+    this.setState({
+      formBlogPost: formBlogPostNew,
+    });
+  };
 
-    this.setState(
-      {
-        formBlogPost: formBlogPostNew,
+  postDataToAPI = () => {
+    axios.post("http://localhost:3004/posts/", this.state.formBlogPost).then(
+      (res) => {
+        this.getPostAPI();
       },
-      () => {
-        console.log("value object from blog post :", this.state.formBlogPost);
-      }
+      (err) => {}
     );
+  };
+  handleSubmit = () => {
+    this.postDataToAPI();
   };
   componentDidMount() {
     this.getPostAPI();
@@ -66,7 +74,7 @@ class BlogPost extends Component {
                 placeholder="add text"
                 onChange={this.handleFormChange}
               ></textarea>
-              <button>Simpan</button>
+              <button onClick={this.handleSubmit}>Simpan</button>
             </label>
           </div>
           {this.state.post.map((post) => {
