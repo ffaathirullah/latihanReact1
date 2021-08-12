@@ -14,7 +14,7 @@ class BlogPost extends Component {
     //       post: json,
     //     });
     //   });
-    axios.get("https://jsonplaceholder.typicode.com/posts").then((result) => {
+    axios.get("  http://localhost:3004/posts").then((result) => {
       this.setState({
         post: result.data,
       });
