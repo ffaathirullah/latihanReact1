@@ -1,7 +1,8 @@
 import { React } from "react";
+import "./HelloComponent.css";
 
 const HelloComponent = () => {
-  return <p>Hello Component</p>;
+  return <p className="text-p">Hello Component</p>;
 };
 
 export default HelloComponent;
