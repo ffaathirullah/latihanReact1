@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import Post from "./../../component/Post/Post";
 import axios from "axios";
 import { withRouter } from "react-router";
+import { connect } from "react-redux";
 
 class BlogPost extends Component {
   state = {
@@ -109,6 +110,7 @@ class BlogPost extends Component {
       <div>
         <Fragment>
           <p>blog post</p>
+          <p>{this.props.order}</p>
           <div className="form-add-post">
             <label>
               <input
@@ -148,4 +150,10 @@ class BlogPost extends Component {
   }
 }
 
-export default withRouter(BlogPost);
+const mapStateToProps = (state) => {
+  return {
+    order: state.totalOrder,
+  };
+};
+
+export default connect(mapStateToProps)(BlogPost);

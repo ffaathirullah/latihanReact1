@@ -13,11 +13,7 @@ export class CardProduct extends Component {
         </div>
         <p className="product-title">Daging Ayam</p>
         <p className="product-desc">Rp.34000</p>
-        <Counter
-          onCounterChange={(value) => {
-            this.props.onCounterChange(value);
-          }}
-        />
+        <Counter />
       </div>
     );
   }

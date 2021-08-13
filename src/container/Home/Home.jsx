@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import YoutubeComponent from "./../../component/YoutubeComponent/YoutubeComponent";
-import { Product } from "./../Product/Product";
 import BlogPost from "./../BlogPost/BlogPost";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import DetailPost from "./../BlogPost/DetailPost/DetailPost";
 import { useHistory } from "react-router-dom";
+import Product from "./../Product/Product";
 
 class Home extends Component {
   render() {
