@@ -4,10 +4,25 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./container/Home/Home";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+const initState = {
+  totalOrder: 5,
+};
+
+//reducer
+const reducer = (state = initState, action) => {
+  return state;
+};
+
+const storeRedux = createStore(reducer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <Provider store={storeRedux}>
+      <Home />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
