@@ -10,6 +10,7 @@ function Post(props) {
         <p className="title"> {props.data.title}</p>
         <p className="desc"> {props.data.body}</p>
         <button onClick={() => props.remove(props.data.id)}>Remove</button>
+        <button onClick={() => props.update(props.data)}>Update</button>
       </div>
     </div>
   );

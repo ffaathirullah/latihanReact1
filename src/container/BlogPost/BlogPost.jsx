@@ -11,6 +11,7 @@ class BlogPost extends Component {
       body: "",
       userId: 1,
     },
+    isUpdate: false,
   };
 
   getPostAPI = () => {
@@ -28,11 +29,43 @@ class BlogPost extends Component {
       this.getPostAPI();
     });
   };
+
+  handleUpdate = (data) => {
+    console.log(data);
+    this.setState({
+      formBlogPost: data,
+      isUpdate: true,
+    });
+  };
+
+  putDataToAPI = () => {
+    axios
+      .put(
+        `http://localhost:3004/posts/${this.state.formBlogPost.id}`,
+        this.state.formBlogPost
+      )
+      .then((res) => {
+        this.getPostAPI();
+
+        this.setState({
+          isUpdate: false,
+          formBlogPost: {
+            id: 1,
+            title: "",
+            body: "",
+            userId: 1,
+          },
+        });
+      });
+  };
+
   handleFormChange = (event) => {
     let timestamp = new Date().getTime();
     let formBlogPostNew = { ...this.state.formBlogPost };
     formBlogPostNew[event.target.name] = event.target.value;
-    formBlogPostNew["id"] = timestamp;
+    if (!this.state.isUpdate) {
+      formBlogPostNew["id"] = timestamp;
+    }
     this.setState({
       formBlogPost: formBlogPostNew,
     });
@@ -42,13 +75,26 @@ class BlogPost extends Component {
     axios.post("http://localhost:3004/posts/", this.state.formBlogPost).then(
       (res) => {
         this.getPostAPI();
+        this.setState({
+          formBlogPost: {
+            id: 1,
+            title: "",
+            body: "",
+            userId: 1,
+          },
+        });
       },
       (err) => {}
     );
   };
   handleSubmit = () => {
-    this.postDataToAPI();
+    if (this.state.isUpdate) {
+      this.putDataToAPI();
+    } else {
+      this.postDataToAPI();
+    }
   };
+
   componentDidMount() {
     this.getPostAPI();
   }
@@ -64,6 +110,7 @@ class BlogPost extends Component {
                 name="title"
                 placeholder="add title"
                 onChange={this.handleFormChange}
+                value={this.state.formBlogPost.title}
               />
               <label htmlFor="body">Blog Content</label>
               <textarea
@@ -73,13 +120,19 @@ class BlogPost extends Component {
                 rows="10"
                 placeholder="add text"
                 onChange={this.handleFormChange}
+                value={this.state.formBlogPost.body}
               ></textarea>
               <button onClick={this.handleSubmit}>Simpan</button>
             </label>
           </div>
           {this.state.post.map((post) => {
             return (
-              <Post key={post.id} data={post} remove={this.handleRemove} />
+              <Post
+                key={post.id}
+                data={post}
+                remove={this.handleRemove}
+                update={this.handleUpdate}
+              />
             );
           })}
         </Fragment>
