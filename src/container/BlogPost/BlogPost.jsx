@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Post from "./../../component/Post/Post";
 import axios from "axios";
+import { withRouter } from "react-router";
 
 class BlogPost extends Component {
   state = {
@@ -95,6 +96,11 @@ class BlogPost extends Component {
     }
   };
 
+  handleDetail = (id) => {
+    const { history } = this.props;
+    history.push(`/detail/${id}`);
+  };
+
   componentDidMount() {
     this.getPostAPI();
   }
@@ -132,6 +138,7 @@ class BlogPost extends Component {
                 data={post}
                 remove={this.handleRemove}
                 update={this.handleUpdate}
+                goDetail={this.handleDetail}
               />
             );
           })}
@@ -141,4 +148,4 @@ class BlogPost extends Component {
   }
 }
 
-export default BlogPost;
+export default withRouter(BlogPost);
