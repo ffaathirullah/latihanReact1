@@ -150,10 +150,4 @@ class BlogPost extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    order: state.totalOrder,
-  };
-};
-
-export default connect(mapStateToProps)(BlogPost);
+export default BlogPost;

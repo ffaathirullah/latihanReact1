@@ -1,31 +1,14 @@
 import React, { Component, Fragment, createContext } from "react";
 import YoutubeComponent from "./../../component/YoutubeComponent/YoutubeComponent";
+import YoutubeComponent2 from "./../../component/YoutubeComponent/YoutubeComponent2";
 import BlogPost from "./../BlogPost/BlogPost";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import DetailPost from "./../BlogPost/DetailPost/DetailPost";
 import { useHistory } from "react-router-dom";
 import Product from "./../Product/Product";
-
-export const RootContext = createContext();
-const Provider = RootContext.Provider;
+import GlobalProvider from "./../../context/context";
 
 class Home extends Component {
-  state = {
-    totalOrder: 5,
-  };
-
-  dispatch = (action) => {
-    if (action.type == "PLUS_ORDER") {
-      this.setState({
-        totalOrder: this.state.totalOrder + 1,
-      });
-    }
-    if (action.type == "MINUS_ORDER") {
-      this.setState({
-        totalOrder: this.state.totalOrder - 1,
-      });
-    }
-  };
   render() {
     return (
       <div>
@@ -36,29 +19,26 @@ class Home extends Component {
           <YoutubeComponent desc="desc 4" />
           <Product />
           <BlogPost /> */}
+          <Fragment>
+            <div>
+              <Link to="/">Home</Link>
+              <Link to="/product">Home</Link>
+              <Link to="/blog">Blog</Link>
+            </div>
 
-          <Provider value={{ state: this.state, dispatch: this.dispatch }}>
-            <Fragment>
-              <div>
-                <Link to="/">Home</Link>
-                <Link to="/product">Home</Link>
-                <Link to="/blog">Blog</Link>
-              </div>
-
-              <Route path="/" exact component={YoutubeComponent} />
-              <Route path="/detail/:postId" component={DetailPost} />
-              <Route path="/product">
-                <Product />
-              </Route>
-              <Route path="/blog">
-                <BlogPost />
-              </Route>
-            </Fragment>
-          </Provider>
+            <Route path="/" exact component={YoutubeComponent2} />
+            <Route path="/detail/:postId" component={DetailPost} />
+            <Route path="/product">
+              <Product />
+            </Route>
+            <Route path="/blog">
+              <BlogPost />
+            </Route>
+          </Fragment>
         </Router>
       </div>
     );
   }
 }
 
-export default Home;
+export default GlobalProvider(Home);
