@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, createContext } from "react";
 import YoutubeComponent from "./../../component/YoutubeComponent/YoutubeComponent";
 import BlogPost from "./../BlogPost/BlogPost";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -6,7 +6,13 @@ import DetailPost from "./../BlogPost/DetailPost/DetailPost";
 import { useHistory } from "react-router-dom";
 import Product from "./../Product/Product";
 
+export const RootContext = createContext();
+const Provider = RootContext.Provider;
+
 class Home extends Component {
+  state = {
+    totalOrder: 5,
+  };
   render() {
     return (
       <div>
@@ -17,21 +23,25 @@ class Home extends Component {
           <YoutubeComponent desc="desc 4" />
           <Product />
           <BlogPost /> */}
-          <Fragment>
-            <div>
-              <Link to="/">Home</Link>
-              <Link to="/product">Home</Link>
-              <Link to="/blog">Blog</Link>
-            </div>
-          </Fragment>
-          <Route path="/" exact component={YoutubeComponent} />
-          <Route path="/detail/:postId" component={DetailPost} />
-          <Route path="/product">
-            <Product />
-          </Route>
-          <Route path="/blog">
-            <BlogPost />
-          </Route>
+
+          <Provider value={this.state}>
+            <Fragment>
+              <div>
+                <Link to="/">Home</Link>
+                <Link to="/product">Home</Link>
+                <Link to="/blog">Blog</Link>
+              </div>
+
+              <Route path="/" exact component={YoutubeComponent} />
+              <Route path="/detail/:postId" component={DetailPost} />
+              <Route path="/product">
+                <Product />
+              </Route>
+              <Route path="/blog">
+                <BlogPost />
+              </Route>
+            </Fragment>
+          </Provider>
         </Router>
       </div>
     );
