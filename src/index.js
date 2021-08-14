@@ -6,33 +6,9 @@ import reportWebVitals from "./reportWebVitals";
 import Home from "./container/Home/Home";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import rootReducer from "./redux/reducer/globalReducer";
 
-const initState = {
-  totalOrder: 0,
-};
-
-//reducer
-const reducer = (state = initState, action) => {
-  if (action.type === "PLUS_ORDER") {
-    return {
-      ...state,
-      totalOrder: state.totalOrder + 1,
-    };
-  }
-  if (action.type === "MINUS_ORDER") {
-    let totalOrders = 0;
-    if (state.totalOrder > 0) {
-      totalOrders = state.totalOrder - 1;
-    }
-    return {
-      ...state,
-      totalOrder: totalOrders,
-    };
-  }
-  return state;
-};
-
-const storeRedux = createStore(reducer);
+const storeRedux = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>
