@@ -18,19 +18,6 @@ class BlogPost extends Component {
     comments: [],
   };
 
-  getPostAPI = () => {
-    API.getNewsBlog().then((result) => {
-      this.setState({
-        post: result,
-      });
-    });
-    API.getComments().then((result) => {
-      this.setState({
-        comments: result,
-      });
-    });
-  };
-
   handleRemove = (data) => {
     axios.delete(`http://localhost:3004/posts/${data}`).then((res) => {
       this.getPostAPI();
@@ -77,22 +64,30 @@ class BlogPost extends Component {
       formBlogPost: formBlogPostNew,
     });
   };
-
+  getPostAPI = () => {
+    API.getNewsBlog().then((result) => {
+      this.setState({
+        post: result,
+      });
+    });
+    API.getComments().then((result) => {
+      this.setState({
+        comments: result,
+      });
+    });
+  };
   postDataToAPI = () => {
-    axios.post("http://localhost:3004/posts/", this.state.formBlogPost).then(
-      (res) => {
-        this.getPostAPI();
-        this.setState({
-          formBlogPost: {
-            id: 1,
-            title: "",
-            body: "",
-            userId: 1,
-          },
-        });
-      },
-      (err) => {}
-    );
+    API.postNewsBlog(this.state.formBlogPost).then((result) => {
+      this.getPostAPI();
+      this.setState({
+        formBlogPost: {
+          id: 1,
+          title: "",
+          body: "",
+          userId: 1,
+        },
+      });
+    });
   };
   handleSubmit = () => {
     if (this.state.isUpdate) {
