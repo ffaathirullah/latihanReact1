@@ -19,7 +19,7 @@ class BlogPost extends Component {
   };
 
   handleRemove = (data) => {
-    axios.delete(`http://localhost:3004/posts/${data}`).then((res) => {
+    API.deleteNewsBlog(data).then((res) => {
       this.getPostAPI();
     });
   };
@@ -33,14 +33,9 @@ class BlogPost extends Component {
   };
 
   putDataToAPI = () => {
-    axios
-      .put(
-        `http://localhost:3004/posts/${this.state.formBlogPost.id}`,
-        this.state.formBlogPost
-      )
-      .then((res) => {
+    API.putNewsBlog(this.state.formBlogPost, this.state.formBlogPost.id).then(
+      (result) => {
         this.getPostAPI();
-
         this.setState({
           isUpdate: false,
           formBlogPost: {
@@ -50,7 +45,8 @@ class BlogPost extends Component {
             userId: 1,
           },
         });
-      });
+      }
+    );
   };
 
   handleFormChange = (event) => {
