@@ -138,13 +138,13 @@ class BlogPost extends Component {
               <button onClick={this.handleSubmit}>Simpan</button>
             </label>
           </div>
-          {this.state.comments.map((comment) => {
+          {/* {this.state.comments.map((comment) => {
             return (
               <p>
                 {comment.name} - {comment.email}
               </p>
             );
-          })}
+          })} */}
           {this.state.post.map((post) => {
             return (
               <Post
