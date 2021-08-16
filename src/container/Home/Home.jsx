@@ -7,6 +7,7 @@ import DetailPost from "./../BlogPost/DetailPost/DetailPost";
 import { useHistory } from "react-router-dom";
 import Product from "./../Product/Product";
 import GlobalProvider from "./../../context/context";
+import Hooks from "./../Hooks/Hooks";
 
 class Home extends Component {
   render() {
@@ -24,9 +25,10 @@ class Home extends Component {
               <Link to="/">Home</Link>
               <Link to="/product">Home</Link>
               <Link to="/blog">Blog</Link>
+              <Link to="/hooks">Hooks</Link>
             </div>
-
             <Route path="/" exact component={YoutubeComponent2} />
+            <Route path="/hooks" exact component={Hooks} />
             <Route path="/detail/:postId" component={DetailPost} />
             <Route path="/product">
               <Product />
